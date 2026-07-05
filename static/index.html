@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker with Local LLM</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 Expense Tracker with Local LLM</h1>
+            <p class="subtitle">Analyze your expenses with AI-powered insights</p>
+        </header>
+
+        <main>
+            <!-- Tab Navigation -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('upload')">📤 Upload</button>
+                <button class="tab-btn" onclick="switchTab('transactions')">📊 Transactions</button>
+                <button class="tab-btn" onclick="switchTab('analysis')">🔍 Analysis</button>
+                <button class="tab-btn" onclick="switchTab('settings')">⚙️ Settings</button>
+            </div>
+
+            <!-- Upload Tab -->
+            <div id="upload" class="tab-content active">
+                <div class="card">
+                    <h2>Upload Bank/UPI Statement</h2>
+                    <p class="info">Upload CSV or PDF files of your bank or UPI statements</p>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <p>Drag and drop your file here or click to browse</p>
+                        <input type="file" id="fileInput" accept=".csv,.pdf" style="display: none;">
+                    </div>
+                    
+                    <div id="uploadStatus" style="display: none;" class="status"></div>
+                    <div id="previewData" style="display: none;" class="preview"></div>
+                </div>
+            </div>
+
+            <!-- Transactions Tab -->
+            <div id="transactions" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>📋 Your Transactions</h2>
+                        <button class="btn-secondary" onclick="refreshTransactions()">🔄 Refresh</button>
+                    </div>
+                    
+                    <div class="filters">
+                        <input type="text" id="filterSearch" placeholder="Search transactions...">
+                        <select id="filterCategory">
+                            <option value="">All Categories</option>
+                            <option value="food">Food</option>
+                            <option value="transport">Transport</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="utilities">Utilities</option>
+                            <option value="health">Health</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div id="transactionsList" class="transactions-list"></div>
+                </div>
+            </div>
+
+            <!-- Analysis Tab -->
+            <div id="analysis" class="tab-content">
+                <div class="card">
+                    <h2>🔍 Generate Insights</h2>
+                    
+                    <div class="analysis-section">
+                        <h3>Quick Analysis</h3>
+                        <button class="btn-primary" onclick="generateInsights()">
+                            Generate Insights
+                        </button>
+                        <button class="btn-secondary" onclick="detectAnomalies()">
+                            Detect Anomalies
+                        </button>
+                        <button class="btn-secondary" onclick="categorizeTransactions()">
+                            Auto-Categorize
+                        </button>
+                    </div>
+
+                    <div class="analysis-section">
+                        <h3>Custom Analysis</h3>
+                        <textarea id="customPrompt" placeholder="Enter your custom analysis question...
+Example: What are my weekly spending patterns? Which categories have the most variation?"></textarea>
+                        <button class="btn-primary" onclick="performCustomAnalysis()">
+                            Run Custom Analysis
+                        </button>
+                    </div>
+
+                    <div id="analysisResult" style="display: none;" class="analysis-result">
+                        <h3>Analysis Results</h3>
+                        <div id="analysisContent"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-content">
+                <div class="card">
+                    <h2>⚙️ System Prompts</h2>
+                    <p class="info">Customize how the AI analyzes your expenses</p>
+
+                    <div class="settings-section">
+                        <h3>Default System Prompt</h3>
+                        <textarea id="defaultPrompt" placeholder="Enter default system prompt for expense analysis...">You are an expert financial analyst specializing in personal expense management. 
+Your role is to:
+1. Analyze spending patterns and provide actionable insights
+2. Identify areas of overspending
+3. Suggest budget optimization strategies
+4. Highlight positive spending habits
+5. Provide specific, measurable recommendations
+
+Be concise, data-driven, and focus on practical advice that can improve financial health.</textarea>
+                        <button class="btn-primary" onclick="saveSystemPrompt('default')">
+                            Save Default Prompt
+                        </button>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Application Info</h3>
+                        <div class="info-box">
+                            <p><strong>Status:</strong> <span id="status">Checking...</span></p>
+                            <p><strong>Local LLM Model:</strong> Qwen3 8B</p>
+                            <p><strong>Storage:</strong> SQLite (Local)</p>
+                            <p><strong>Data:</strong> All data is stored locally, no cloud uploads</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
