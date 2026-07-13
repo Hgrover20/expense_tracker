@@ -52,7 +52,7 @@ echo Before starting the server:
 echo.
 echo 1. Make sure Ollama is running:
 echo    - Download from https://ollama.ai
-echo    - Run: ollama pull qwen3:8b
+echo    - Run: ollama pull qwen2.5:3b
 echo.
 echo 2. Start Ollama service (if not already running)
 echo.

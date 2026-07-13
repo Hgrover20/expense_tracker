@@ -1,45 +1,23 @@
-# Virtual Environment
+# Virtual environments
 venv/
-env/
-ENV/
 
-# Database
+# Local database files
 *.db
-*.sqlite
-*.sqlite3
 
 # Uploaded files
 uploads/
 
-# Python
+# Python cache and compiled files
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
 
-# IDEs
+# IDE/editor files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-.DS_Store
 
 # Environment files
 .env
@@ -50,6 +28,6 @@ wheels/
 *.log
 logs/
 
-# OS specific
+# OS files
 .DS_Store
 Thumbs.db

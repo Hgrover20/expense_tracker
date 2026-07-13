@@ -2,7 +2,7 @@
 
 ## Project: Expense Tracker with Local LLM
 
-A complete, self-contained expense tracking application using Qwen3 8B local LLM for AI-powered financial analysis.
+A complete, self-contained expense tracking application using Qwen2 8B local LLM for AI-powered financial analysis.
 
 ---
 
@@ -11,7 +11,7 @@ A complete, self-contained expense tracking application using Qwen3 8B local LLM
 ### Core Features
 ✅ Upload bank/UPI statements (CSV or PDF)
 ✅ Automatic transaction parsing and categorization
-✅ AI-powered expense analysis using local Qwen3 8B
+✅ AI-powered expense analysis using local Qwen2.5 3B
 ✅ Pattern detection and anomaly identification
 ✅ Custom system prompts for controlled LLM output
 ✅ Local SQLite database (no cloud, no external DB)
@@ -22,7 +22,7 @@ A complete, self-contained expense tracking application using Qwen3 8B local LLM
 - **Backend**: Python 3.13.2+, FastAPI, Uvicorn
 - **Frontend**: HTML5, CSS3, Vanilla JavaScript
 - **Database**: SQLite (local file-based)
-- **LLM**: Qwen3 8B via Ollama
+- **LLM**: Qwen2 8B via Ollama
 - **File Parsing**: PyPDF, Pandas
 
 ---
@@ -246,7 +246,7 @@ aiofiles==23.2.1          # Async file handling
 1. **Install Ollama**
    ```bash
    # Download from https://ollama.ai
-   ollama pull qwen3:8b
+   ollama pull qwen2:8b
    ```
 
 2. **Run Setup Script**
@@ -495,7 +495,7 @@ MIT License - Free to use and modify
 Your financial data never leaves your machine. Complete control over your information.
 
 ### Offline Operation
-After downloading Qwen3 8B, everything works offline. Perfect for privacy-conscious users.
+After downloading Qwen2.5 3B, everything works offline. Perfect for privacy-conscious users.
 
 ### Customizable AI
 Control exactly how the AI analyzes your data using system prompts.

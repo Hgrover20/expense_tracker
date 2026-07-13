@@ -1,21 +1,14 @@
-import ollama
 from typing import List, Dict, Optional
 from datetime import datetime
 import json
 
-from config import (
-    LLM_HOST,
-    LLM_NUM_CTX,
-    LLM_NUM_PREDICT,
-    LLM_TEMPERATURE,
-    LLM_KEEP_ALIVE,
-)
+from llm.manager import LLMManager
 
 
 class LLMAnalyzer:
     def __init__(self, model_name: str = "qwen2.5:3b"):
         self.model_name = model_name
-        self.client = ollama.Client(host=LLM_HOST)
+        self.manager = LLMManager(model_name=self.model_name)
         
     def generate_insights(self, transactions: List[Dict], system_prompt: Optional[str] = None) -> str:
         """
@@ -41,20 +34,17 @@ Based on this data, provide:
 6. Specific recommendations for expense management
 """
         
-        response = self.client.generate(
-            model=self.model_name,
+        response_text = self.manager.generate_with_options(
             prompt=user_message,
             system=system_prompt,
-            stream=False,
             options={
-                "num_ctx": LLM_NUM_CTX,
-                "num_predict": LLM_NUM_PREDICT,
-                "temperature": LLM_TEMPERATURE,
+                "num_ctx": self.manager.options.get("num_ctx"),
+                "num_predict": self.manager.options.get("num_predict"),
+                "temperature": self.manager.options.get("temperature"),
             },
-            keep_alive=LLM_KEEP_ALIVE,
         )
         
-        return response['response']
+        return response_text
     
     def categorize_transactions(self, transactions: List[Dict]) -> List[Dict]:
         """
@@ -62,20 +52,17 @@ Based on this data, provide:
         """
         prompt = self._prepare_categorization_prompt(transactions)
         
-        response = self.client.generate(
-            model=self.model_name,
+        response_text = self.manager.generate_with_options(
             prompt=prompt,
             system="You are an expert financial analyzer. Categorize the following transactions accurately.",
-            stream=False,
             options={
-                "num_ctx": LLM_NUM_CTX,
-                "num_predict": LLM_NUM_PREDICT,
+                "num_ctx": self.manager.options.get("num_ctx"),
+                "num_predict": self.manager.options.get("num_predict"),
                 "temperature": 0.1,
             },
-            keep_alive=LLM_KEEP_ALIVE,
         )
         
-        return self._parse_categorization_response(response['response'], transactions)
+        return self._parse_categorization_response(response_text, transactions)
     
     def detect_anomalies(self, transactions: List[Dict]) -> List[Dict]:
         """
@@ -89,20 +76,17 @@ Analyze these transactions and identify any unusual patterns or anomalies:
 List any suspicious or unusual transactions with explanations.
 """
         
-        response = self.client.generate(
-            model=self.model_name,
+        response_text = self.manager.generate_with_options(
             prompt=prompt,
             system="You are a fraud detection expert. Identify anomalies in expense patterns.",
-            stream=False,
             options={
-                "num_ctx": LLM_NUM_CTX,
+                "num_ctx": self.manager.options.get("num_ctx"),
                 "num_predict": 180,
                 "temperature": 0.1,
             },
-            keep_alive=LLM_KEEP_ALIVE,
         )
         
-        return response['response']
+        return response_text
     
     def custom_analysis(self, transactions: List[Dict], custom_prompt: str) -> str:
         """
@@ -118,19 +102,16 @@ User Request:
 {custom_prompt}
 """
         
-        response = self.client.generate(
-            model=self.model_name,
+        response_text = self.manager.generate_with_options(
             prompt=full_prompt,
-            stream=False,
             options={
-                "num_ctx": LLM_NUM_CTX,
-                "num_predict": LLM_NUM_PREDICT,
+                "num_ctx": self.manager.options.get("num_ctx"),
+                "num_predict": self.manager.options.get("num_predict"),
                 "temperature": 0.2,
             },
-            keep_alive=LLM_KEEP_ALIVE,
         )
         
-        return response['response']
+        return response_text
     
     def _prepare_transaction_summary(self, transactions: List[Dict]) -> str:
         """Prepare a compact transaction summary for faster LLM analysis"""

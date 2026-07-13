@@ -5,9 +5,9 @@
 ### Step 1: Install Ollama (5 min)
 1. Download Ollama from https://ollama.ai
 2. Install and run it
-3. Pull the Qwen3 8B model:
+3. Pull the Qwen2.5 3B model:
    ```bash
-   ollama pull qwen3:8b
+   ollama pull qwen2.5:3b
    ```
 
 ### Step 2: Set Up Python Environment (2 min)
@@ -86,7 +86,7 @@ You can now:
 ### ❌ "Model not found" or "Connection refused"
 - Start Ollama: `ollama serve`
 - Verify model is installed: `ollama list`
-- If not installed: `ollama pull qwen3:8b`
+- If not installed: `ollama pull qwen2.5:3b`
 
 ### ❌ "ModuleNotFoundError: No module named 'fastapi'"
 - Rerun: `pip install -r requirements.txt`

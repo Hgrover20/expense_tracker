@@ -11,6 +11,7 @@ from typing import List, Optional
 from database import Database
 from file_parser import FileParser
 from llm_analyzer import LLMAnalyzer
+from config import LLM_MODEL_NAME
 
 # Initialize FastAPI app
 app = FastAPI(title="Expense Tracker with Local LLM")
@@ -31,7 +32,7 @@ UPLOAD_DIR = BASE_DIR / "uploads"
 
 # Initialize components
 db = Database()
-llm = LLMAnalyzer(model_name="qwen3:8b")
+llm = LLMAnalyzer(model_name=LLM_MODEL_NAME)
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 # Mount static files
@@ -290,6 +291,16 @@ async def health_check():
     Health check endpoint
     """
     return {"status": "healthy", "service": "Expense Tracker with Local LLM"}
+
+@app.get("/config")
+async def get_config():
+    """
+    Return frontend configuration values
+    """
+    return {
+        "status": "success",
+        "model_name": LLM_MODEL_NAME
+    }
 
 if __name__ == "__main__":
     import uvicorn

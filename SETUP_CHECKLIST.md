@@ -17,9 +17,9 @@ Use this checklist to ensure your Expense Tracker is properly set up and running
 - [ ] Restart computer if prompted
 - [ ] Verify Ollama is installed: `ollama --version`
 
-### Step 2: Download Qwen3 8B Model
+### Step 2: Download Qwen2.5 3B Model
 - [ ] Open terminal/command prompt
-- [ ] Run: `ollama pull qwen3:8b`
+- [ ] Run: `ollama pull qwen2.5:3b`
 - [ ] Wait for download to complete (~4GB)
 - [ ] Verify model is installed: `ollama list`
 
@@ -134,8 +134,8 @@ If something doesn't work:
 
 ### LLM Not Responding
 - [ ] Check if Ollama is running: `curl http://localhost:11434/api/tags`
-- [ ] Check if Qwen3 8B is installed: `ollama list`
-- [ ] If not installed: `ollama pull qwen3:8b`
+- [ ] Check if Qwen2.5 3B is installed: `ollama list`
+- [ ] If not installed: `ollama pull qwen2.5:3b`
 - [ ] Restart Ollama service
 - [ ] Restart the backend server
 

@@ -365,6 +365,16 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             document.getElementById('status').textContent = '❌ Backend not running';
         });
+
+    // Load model name from backend config
+    fetch(`${API_BASE}/config`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('modelName').textContent = data.model_name || 'Unknown';
+        })
+        .catch(error => {
+            document.getElementById('modelName').textContent = 'Unknown';
+        });
     
     // Load initial transactions
     refreshTransactions();

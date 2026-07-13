@@ -1,6 +1,7 @@
 # Configuration for Expense Tracker
 
 # LLM Configuration
+LLM_PROVIDER = "ollama"
 LLM_MODEL_NAME = "qwen2.5:3b"
 LLM_HOST = "http://localhost:11434"
 LLM_TIMEOUT = 60  # seconds
