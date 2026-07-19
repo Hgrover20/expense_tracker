@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 from .providers import get_llm_provider
 from config import LLM_PROVIDER, LLM_MODEL_NAME, LLM_NUM_CTX, LLM_NUM_PREDICT, LLM_TEMPERATURE

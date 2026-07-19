@@ -14,6 +14,10 @@ LLM_KEEP_ALIVE = "10m"
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 8000
 DEBUG = False
+CORS_ALLOWED_ORIGINS = ["*"]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_METHODS = ["*"]
+CORS_ALLOWED_HEADERS = ["*"]
 
 # Database Configuration
 DB_PATH = "expenses.db"

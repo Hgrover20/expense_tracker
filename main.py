@@ -1,29 +1,18 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
-from fastapi.responses import FileResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
-import os
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.responses import FileResponse
 import shutil
 from pathlib import Path
 import json
-from typing import List, Optional
+from typing import Optional
 
 from database import Database
 from file_parser import FileParser
 from llm_analyzer import LLMAnalyzer
 from config import LLM_MODEL_NAME
+from app_setup import configure_app
 
 # Initialize FastAPI app
 app = FastAPI(title="Expense Tracker with Local LLM")
-
-# Enable CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # Base directories
 BASE_DIR = Path(__file__).resolve().parent
@@ -35,9 +24,7 @@ db = Database()
 llm = LLMAnalyzer(model_name=LLM_MODEL_NAME)
 UPLOAD_DIR.mkdir(exist_ok=True)
 
-# Mount static files
-if STATIC_DIR.exists():
-    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+configure_app(app, BASE_DIR)
 
 @app.get("/")
 async def root():

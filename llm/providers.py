@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Optional
 
-from config import LLM_HOST, LLM_PROVIDER, LLM_MODEL_NAME
+from config import LLM_HOST
 
 
 class BaseLLMProvider(ABC):
